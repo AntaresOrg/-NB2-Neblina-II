@@ -14,3 +14,26 @@
  * motion monitoring during flight. The implementation is tailored for the ESP32 and the rocket avionics
  * integration used by the Neblina II system.
  */
+#pragma once
+
+#include <stdbool.h>
+
+#define LOG_TAG "MPU6050"
+
+typedef struct mpu6050 mpu6050_t;
+
+void mpu6050_init(mpu6050_t *mpu);
+
+bool mpu6050_is_initialized(const mpu6050_t *mpu);
+
+float mpu6050_get_acceleration_x(mpu6050_t *mpu);
+
+float mpu6050_get_acceleration_y(mpu6050_t *mpu);
+
+float mpu6050_get_acceleration_z(mpu6050_t *mpu);
+
+float mpu6050_get_angular_velocity_x(mpu6050_t *mpu);
+
+float mpu6050_get_angular_velocity_y(mpu6050_t *mpu);
+
+float mpu6050_get_angular_velocity_z(mpu6050_t *mpu);
