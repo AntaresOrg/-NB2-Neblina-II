@@ -1,6 +1,6 @@
 /**
  * @file       logs.c
- * @brief      Short description of the module's purpose and functionality
+ * @brief      Source implementation for structured flight logs and operational message handling.
  *
  * @organization Antares Foguetemodelismo
  * @year         2026
@@ -9,6 +9,8 @@
  * @author     git_user_name <git_user_email>
  *
  * @details
- * Detailed description, dependencies, hardware interfaces, or special notes
+ * This source file implements the project's logging utilities used to produce structured runtime and telemetry
+ * messages. It defines the formatting and output logic needed to monitor the system, diagnose faults, and review
+ * mission data after flight. The implementation supports clear operational visibility across the embedded stack.
  */
 #include "utils/logs.h"

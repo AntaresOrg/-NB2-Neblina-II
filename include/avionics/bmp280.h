@@ -1,6 +1,6 @@
 /**
  * @file       bmp280.h
- * @brief      Short description of the module's purpose and functionality
+ * @brief      Driver for the BMP280 barometer used to measure atmospheric pressure and temperature.
  *
  * @organization Antares Foguetemodelismo
  * @year         2026
@@ -9,5 +9,8 @@
  * @author     git_user_name <git_user_email>
  *
  * @details
- * Detailed description, dependencies, hardware interfaces, or special notes
+ * This module handles the BMP280 pressure and temperature sensor used in the rocket avionics stack.
+ * It provides the calibration and conversion routines required to estimate altitude, monitor atmospheric
+ * conditions, and support flight-state decisions during ascent and descent. The implementation is designed
+ * for the ESP32 platform and integrates with the project's sensor acquisition workflow.
  */

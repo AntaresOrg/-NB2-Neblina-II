@@ -1,6 +1,6 @@
 /**
  * @file       logs.h
- * @brief      Short description of the module's purpose and functionality
+ * @brief      Logging utilities for structured system and telemetry messages during flight operations.
  *
  * @organization Antares Foguetemodelismo
  * @year         2026
@@ -9,5 +9,8 @@
  * @author     git_user_name <git_user_email>
  *
  * @details
- * Detailed description, dependencies, hardware interfaces, or special notes
+ * This module provides the logging utilities used to record structured system and telemetry messages during
+ * flight operations. It supports message formatting, trace output, and debugging information needed for
+ * runtime monitoring, fault diagnosis, and mission analysis. The design keeps the logging interface consistent
+ * across the embedded firmware.
  */

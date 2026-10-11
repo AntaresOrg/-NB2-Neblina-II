@@ -1,14 +1,16 @@
 /**
  * @file       main.c
- * @brief      Short description of the module's purpose and functionality
+ * @brief      Entry point for the Neblina II embedded application and overall system startup.
  *
  * @organization Antares Foguetemodelismo
  * @year         2026
  * 
  * @type       Source
- * @author     git_user_name <git_user_email>
+ * @author     Eletronics Team Members
  *
  * @details
- * Detailed description, dependencies, hardware interfaces, or special notes
+ * This source file is the application entry point for the Neblina II firmware. It initializes the embedded system,
+ * starts the required subsystems, and launches the overall mission control flow used by the rocket avionics
+ * platform. The implementation coordinates the integration of sensors, telemetry, storage, and flight logic.
  */
 void app_main() {}
