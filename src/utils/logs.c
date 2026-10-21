@@ -25,6 +25,7 @@
 #define LOG_COLOR_WARN    "\x1b[0;33m" // Yellow
 #define LOG_COLOR_ERROR   "\x1b[0;31m" // Red
 #define LOG_COLOR_DEBUG   "\x1b[0;34m" // Blue
+#define LOG_TAG_COLOR     "\x1b[1;37m" // White Bold
 
 void log_write(const char *tag, log_level_t level, const char *fmt, ...) {
     uint32_t millis = (uint32_t)(esp_timer_get_time() / 1000);
@@ -46,7 +47,7 @@ void log_write(const char *tag, log_level_t level, const char *fmt, ...) {
     }
 
     if (tag != NULL) {
-        printf(" [%s]: ", tag);
+        printf(" [%s%s%s]: ", LOG_TAG_COLOR, tag, LOG_COLOR_RESET);
     } else {
         printf(": ");
     }
