@@ -6,7 +6,7 @@
  * @year         2026
  * 
  * @type       Source
- * @author     git_user_name <git_user_email>
+ * @author     RafaelCarro rafaelcgaudim@yahoo.com.br
  *
  * @details
  * This source file implements the project's logging utilities used to produce structured runtime and telemetry

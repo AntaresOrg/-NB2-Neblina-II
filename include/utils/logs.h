@@ -6,7 +6,7 @@
  * @year         2026
  * 
  * @type       Header
- * @author     git_user_name <git_user_email>
+ * @author     RafaelCarro rafaelcgaudim@yahoo.com.br
  *
  * @details
  * This module provides the logging utilities used to record structured system and telemetry messages during
