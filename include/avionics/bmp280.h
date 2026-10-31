@@ -19,8 +19,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define LOG_TAG "BMP280"
-
 // BMP280 ADDRESSES
 #define BMP280_ADDR_1 0x76
 #define BMP280_ADDR_2 0x77

@@ -15,3 +15,5 @@
  * project's requirement for flight-data retention and post-flight analysis.
  */
 #include "avionics/flash_memory.h"
+
+#define LOG_TAG "FLASH_MEMORY"

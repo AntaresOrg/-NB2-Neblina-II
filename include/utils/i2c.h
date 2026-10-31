@@ -6,7 +6,7 @@
  * @year         2026
  * 
  * @type       Header
- * @author     git_user_name <git_user_email>
+ * @author     RafaelCarro rafaelcgaudim@yahoo.com.br
  *
  * @details
  * This module centralizes the I2C bus configuration used by the onboard avionics sensors. It provides the
@@ -19,8 +19,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "driver/i2c.h"
-
-#define LOG_TAG "I2C"
 
 bool initialize_i2c(void);
 

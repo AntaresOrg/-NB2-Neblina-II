@@ -19,8 +19,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define LOG_TAG "FLASH_MEMORY"
-
 typedef struct flash_memory flash_memory_t;
 
 void flash_memory_init(flash_memory_t *flash);
