@@ -14,3 +14,5 @@
  * The implementation is designed to support reliable, low-bandwidth communication during the mission.
  */
 #include "telemetry/lora.h"
+
+#define LOG_TAG "LORA"
