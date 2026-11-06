@@ -15,3 +15,5 @@
  * follows the project's embedded sensor acquisition model for ESP32-based avionics.
  */
 #include "avionics/bmp280.h"
+
+#define LOG_TAG "BMP280"

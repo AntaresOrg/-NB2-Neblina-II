@@ -19,8 +19,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define LOG_TAG "LORA"
-
 typedef struct lora lora_t;
 
 void lora_init(lora_t *lora);

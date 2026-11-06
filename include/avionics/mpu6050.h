@@ -18,8 +18,6 @@
 
 #include <stdbool.h>
 
-#define LOG_TAG "MPU6050"
-
 typedef struct mpu6050 mpu6050_t;
 
 void mpu6050_init(mpu6050_t *mpu);

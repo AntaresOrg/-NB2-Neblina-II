@@ -18,8 +18,6 @@
 
 #include <stdbool.h>
 
-#define LOG_TAG "GPS"
-
 typedef struct m9n m9n_t;
 
 void m9n_init(m9n_t *m9n);

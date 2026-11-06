@@ -15,3 +15,5 @@
  * platform used by the Neblina II project.
  */
 #include "avionics/mpu6050.h"
+
+#define LOG_TAG "MPU6050"

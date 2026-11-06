@@ -15,3 +15,5 @@
  * mission's navigation and tracking requirements.
  */
 #include "telemetry/gps.h"
+
+#define LOG_TAG "GPS"
