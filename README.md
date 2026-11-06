@@ -3,6 +3,10 @@
 Página do projeto do código do foguete de 3km Neblina II da equipe Antares de Foguetemodelismo.
 Esta página ainda está em construção
 
+## Documentação
+
+Consulte o [índice da wiki](docs/Wiki.md) para acessar a documentação dos módulos, da arquitetura do firmware, do formato de telemetria e dos procedimentos de desenvolvimento.
+
 ## Estrutura Hierárquica do Projeto
 
 ```
