@@ -6,7 +6,7 @@
  * @year         2026
  * 
  * @type       Header
- * @author     git_user_name <git_user_email>
+ * @author     RafaelCarro rafaelcgaudim@yahoo.com.br
  *
  * @details
  * This module manages the external flash memory used to store telemetry, flight data, and recovery logs.
@@ -16,19 +16,18 @@
  */
 #pragma once
 
+#include "configs/launch_settings.h"
 #include <stdbool.h>
 #include <stddef.h>
 
 typedef struct flash_memory flash_memory_t;
 
-void flash_memory_init(flash_memory_t *flash);
+flash_memory_t *flash_memory_init();
 
-bool flash_memory_is_initialized(const flash_memory_t *flash);
+bool flash_memory_is_initialized(const flash_memory_t *flash_memory);
 
-void flash_memory_write(flash_memory_t *flash, const void *data, size_t size);
+void flash_memory_reset(flash_memory_t *flash_memory);
 
-void flash_memory_read(flash_memory_t *flash, void *buffer, size_t size);
+void flash_memory_save_flight_package(flash_memory_t *flash_memory, data_package flight_package);
 
-void flash_memory_reset(flash_memory_t *flash);
-
-void flash_memory_dump(flash_memory_t *flash);
+void flash_memory_read_flight_data(flash_memory_t *flash_memory);
