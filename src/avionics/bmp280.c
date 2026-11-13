@@ -15,22 +15,23 @@
  * follows the project's embedded sensor acquisition model for ESP32-based avionics.
  */
 
-#include "bmp280.h" //dps vou tentar colocar no header
-#include <stdio.h>
+#include "avionics/bmp280.h" //
+#include "utils/logs.h"
 #include <stdbool.h>
 
 // Definição do tipo para o callback 
 typedef void (*sensor_data_callback_t)(float pressure_pa, float temperature_c, float altitude_m, bool success);
 
 // Estrutura para gerizar o estado do sensor no foguete
-typedef struct {
+struct bmp280 {
     bmp280_handle_t dev_handle;
     volatile bool data_sent_flag;  // Flag que avisa quando o dado acabou de ser transmitido
     sensor_data_callback_t callback;
-} rocket_altimeter_t;
+    const char *name;
+};
 
 // Instância principal do nosso altímetro
-static rocket_altimeter_t rocket_altimeter;
+static struct bmp280 rocket_altimeter;
 
 // Callback chamado assim que a leitura e o envio ficam prontos
 static void internal_data_callback(float pressure_pa, float temperature_c, float altitude_m, bool success) {
@@ -38,48 +39,49 @@ static void internal_data_callback(float pressure_pa, float temperature_c, float
         // Ativamos a flag para o ESP32 saber que o ciclo terminou com sucesso
         rocket_altimeter.data_sent_flag = true;
         
-        printf("[Telemetry] Pressão: %.2f Pa | Temp: %.2f °C | Altura: %.2f m\n", 
-               pressure_pa, temperature_c, altitude_m);
+        LOGI(LOG_TAG, "[Telemetry] Pressão: %.2f Pa | Temp: %.2f °C | Altura: %.2f m",
+             pressure_pa, temperature_c, altitude_m);
     } else {
         rocket_altimeter.data_sent_flag = false;
-        printf("[Erro] Opa, deu ruim na leitura do BMP280!\n");
+        LOGE(LOG_TAG, "deu ruim na leitura do BMP280");
     }
 }
 
 /**
  * @brief Configura o BMP280 focado no nosso perfil de voo (Modo Normal, Filtro IIR )
  */
-bool rocket_bmp280_init(void) {
+bmp280_t *bmp280_init(uint8_t address, const char *name) {
     bmp280_error_code_t err;
 
-    // 1. Inicializa via I2C no endereço padrão do sensor (0x76)
-    err = bmp280_init(&rocket_altimeter.dev_handle, BMP280_HW_INTERFACE_I2C, BMP280_I2C_ADDRESS_DEFAULT);
-    if (err != 0) return false;
+    // 1. Inicializa via I2C no endereço informado (padrão do sensor: 0x76)
+    err = bmp280_driver_init(&rocket_altimeter.dev_handle, BMP280_HW_INTERFACE_I2C, address);
+    if (err != 0) return NULL;
 
     // 2. Ajusta o oversampling para alta precisão (essencial para pegar os 3km de apogeu)
     err = bmp280_set_pressure_oversampling(&rocket_altimeter.dev_handle, BMP280_OVERSAMPLING_16X);
-    if (err != 0) return false;
+    if (err != 0) return NULL;
 
     err = bmp280_set_temperature_oversampling(&rocket_altimeter.dev_handle, BMP280_OVERSAMPLING_2X);
-    if (err != 0) return false;
+    if (err != 0) return NULL;
 
     // 3. Ativa o filtro IIR (COLOQUEI VALOR ALEATORIO)
     err = bmp280_set_filter_coefficient(&rocket_altimeter.dev_handle, BMP280_IIR_FILTER_16);
-    if (err != 0) return false;
+    if (err != 0) return NULL;
 
     // 4. Tempo de standby (configurar depois poensando em sincronizar com o mpu)
     err = bmp280_set_standby_time(&rocket_altimeter.dev_handle, BMP280_STANDBY_TIME_0_5_MS);
-    if (err != 0) return false;
+    if (err != 0) return NULL;
 
     // 5. Joga o sensor em modo contínuo (Normal Mode)
     err = bmp280_set_mode(&rocket_altimeter.dev_handle, BMP280_MODE_NORMAL);
-    if (err != 0) return false;
+    if (err != 0) return NULL;
 
     // Preenche as estruturas de controlo
     rocket_altimeter.data_sent_flag = false;
     rocket_altimeter.callback = internal_data_callback;
+    rocket_altimeter.name = name;
 
-    return true;
+    return &rocket_altimeter;
 }
 
 /**
@@ -116,29 +118,8 @@ void rocket_bmp280_task_iteration(void) {
         if (err != 0) altitude = 0.0f;
     }
 
-    // Sucesso total! Dispara o callback informando que o dado está pronto/enviado
+    // Sucesso. Dispara o callback informando que o dado está pronto/enviado
     if (rocket_altimeter.callback) {
         rocket_altimeter.callback((float)pressure, temperature, altitude, true);
     }
 }
-
-int main(void) {
-    if (!rocket_bmp280_init()) {
-        printf("Erro: O BMP280 não quis responder na inicialização.\n");
-        return -1;
-    }
-
-    printf("Tudo pronto! Sensor configurado para a missão do foguete.\n");
-
-    while (1) {
-        rocket_bmp280_task_iteration();
-
-        // Se a flag acendeu, o dado foi processado e enviado com sucesso
-        if (rocket_altimeter.data_sent_flag) {
-            // isso aqui seria a parte de "fusão" do bmp com o mpu, acho que é melhor colocar em outro arquivo, mas, por enquanto, vou manter aqui 
-        }
-    }
-
-    return 0;
-}
-#include "avionics/bmp280.h"
